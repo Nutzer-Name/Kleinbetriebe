@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>prozesskonkret – Digitalisierung & KI für Handwerksbetriebe | Ruth Wächter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --nacht:     #0F2744;
+  --kupfer:    #B8553A;
+  --lehm:      #E8D5BF;
+  --lehm2:     #f0e4d1;
+  --putz:      #F8F3ED;
+  --blau:      #3a6b52;    /* Dunkelgrün, ersetzt Akzent-Blau */
+  --hellblau:  #edf5f0;    /* sehr helles Grün, ersetzt hellblau bg */
+  --hellblau2: #a8d4b8;    /* mittelhelles Grün, ersetzt hellblau2 */
+  --text:      #1E2A38;
+  --textmid:   #4A5568;
+  --sans:      'Open Sans', Arial, sans-serif;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); color: var(--text); background: var(--putz); }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--nacht);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 52px; height: 56px;
+  box-shadow: 0 1px 12px rgba(0,0,0,0.25);
+}
+.nav-brand { font-size: 1rem; font-weight: 700; color: var(--putz); }
+.nav-brand span { color: var(--putz); }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a { color: rgba(248,243,237,0.65); text-decoration: none; font-size: 0.82rem; font-weight: 600; transition: color 0.2s; }
+.nav-links a:hover { color: var(--putz); }
+.nav-cta { background: var(--kupfer) !important; color: var(--putz) !important; padding: 7px 18px; border-radius: 4px; }
+.nav-cta:hover { background: #9e4430 !important; }
+
+/* ── LAYOUT ── */
+.container { max-width: 1080px; margin: 0 auto; padding: 0 52px; }
+section { padding: 72px 0; }
+
+/* ── HERO ── */
+#start {
+  background: var(--nacht);
+  padding-top: 56px; min-height: 72vh;
+  display: flex; align-items: center;
+  position: relative; overflow: hidden;
+}
+#start::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+.hero-inner {
+  display: grid; grid-template-columns: 1fr 380px; gap: 56px;
+  align-items: center; position: relative; z-index: 1;
+}
+.hero-kicker {
+  display: inline-block; font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 1.8px; text-transform: uppercase;
+  color: var(--putz); margin-bottom: 20px;
+}
+.hero-h1 {
+  font-size: 2.3rem; font-weight: 800; color: var(--lehm);
+  line-height: 1.5; margin-bottom: 18px; letter-spacing: -0.3px;
+  text-align: center;
+}
+.hero-h1 .h1-line1 { color: #FFF6EC; }   /* "Damit Ihr Bild vom Betrieb" – strahlendes Warmweiß */
+/*.hero-h1 .h1-line2 { color: #FFF6EC; } */  /* "Ihr Bild vom Betrieb" – strahlendes Warmweiß */
+.hero-h1 .accent   { color: #FFF6EC; }   /* "Wirklichkeit wird." – strahlendes Warmweiß */
+.hero-sub {
+  font-size: 1rem; color: rgba(248,243,237,0.68);
+  line-height: 1.75; margin-bottom: 32px; max-width: 480px;
+}
+.hero-buttons { display: flex; gap: 12px; }
+
+/* Allgemeine Button-Basis */
+.btn {
+  display: inline-block; text-decoration: none;
+  border-radius: 4px; font-weight: 700; font-size: 0.88rem;
+  transition: all 0.2s; padding: 12px 24px;
+}
+
+/* Hero: "Kostenloses Erstgespräch" – warmes Gebrochenweiß, Nachtblau-Schrift */
+.btn-hero-cta { background: #E4D8C4; color: var(--nacht); border: none; }
+.btn-hero-cta:hover { background: #d9cdb8; }
+
+/* Hero: "Was ich anbiete" – Nachtblau bg, Putzweiß Schrift, Lehm-Rahmen */
+.btn-hero-info { background: var(--nacht); color: var(--putz); border: 1.5px solid var(--lehm); }
+.btn-hero-info:hover { background: #1a3a60; }
+
+/* Allgemein verwendete Buttons (außerhalb Hero) */
+.btn-primary { background: var(--kupfer); color: var(--putz); }
+.btn-primary:hover { background: #9e4430; }
+.btn-outline { background: transparent; color: var(--nacht); border: 1.5px solid var(--lehm); }
+.btn-outline:hover { border-color: var(--blau); }
+
+/* Hero rechte Spalte: Werkstatt-Bild */
+.hero-img-wrap {
+  height: 100%; min-height: 320px;
+  border-radius: 8px; overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+}
+.hero-img-wrap img {
+  width: 100%; height: 100%; object-fit: cover;
+  display: block; opacity: 0.88;
+}
+
+/* Trennband – zentriert */
+.hero-bar {
+  background: var(--lehm); padding: 18px 52px;
+  display: flex; gap: 48px; align-items: center; justify-content: center;
+  border-bottom: 1px solid #d8c5a9;
+}
+.hero-bar-item { display: flex; align-items: center; gap: 10px; }
+.hb-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--kupfer); opacity: 0.5; flex-shrink: 0; }
+.hb-text { font-size: 0.82rem; color: var(--textmid); font-weight: 600; }
+
+/* ── GEMEINSAME ABSCHNITT-STILE ── */
+.section-label {
+  display: inline-block; font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--textmid); margin-bottom: 9px;
+}
+.section-h2 {
+  font-size: 1.95rem; font-weight: 800; color: var(--nacht);
+  line-height: 1.2; margin-bottom: 6px; letter-spacing: -0.3px;
+}
+.sep       { width: 40px; height: 3px; background: var(--lehm);   border-radius: 2px; margin: 14px 0 28px; }
+.sep-kupfer { width: 40px; height: 3px; background: var(--kupfer); opacity: 0.4; border-radius: 2px; margin: 14px 0 28px; }
+.section-intro { font-size: 0.97rem; color: var(--textmid); line-height: 1.7; margin-bottom: 40px; max-width: 680px; }
+
+/* ── SCHMERZPUNKTE – jetzt auf Putzweiß (direkt nach Hero) ── */
+#probleme { background: var(--putz); }
+.quotes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 32px; }
+.quote-card {
+  background: #fbeae5; border-radius: 6px;
+  padding: 18px 20px 18px 24px;
+  border: 1px solid rgba(160,60,35,0.18);
+  border-left: 3px solid rgba(160,60,35,0.6);
+}
+.quote-card p { font-style: italic; font-size: 0.9rem; color: var(--text); font-weight: 600; line-height: 1.58; }
+.pain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.pain-card {
+  background: white; border-radius: 7px;
+  padding: 18px 16px; border-top: 2px solid var(--hellblau2);
+}
+.pain-head { font-size: 0.88rem; font-weight: 700; color: var(--nacht); margin-bottom: 6px; }
+.pain-body { font-size: 0.82rem; color: var(--textmid); line-height: 1.5; }
+
+/* ── MARKTLAGE – jetzt auf Lehm (nach Schmerzpunkte) ── */
+#lage { background: var(--lehm2); }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 44px; }
+.stat-card {
+  background: var(--putz); border: 1px solid rgba(92,143,191,0.15);
+  border-radius: 8px; padding: 22px 16px; text-align: center;
+  border-top: 3px solid var(--hellblau2);
+}
+.stat-num { font-size: 2.2rem; font-weight: 800; color: var(--nacht); display: block; margin-bottom: 7px; letter-spacing: -1px; }
+.stat-label { color: var(--textmid); font-size: 0.8rem; line-height: 1.45; }
+.rc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.risk-box {
+  background: #fdf4f1; border: 1px solid rgba(184,85,58,0.15);
+  border-top: 3px solid rgba(184,85,58,0.35);
+  border-radius: 8px; padding: 26px;
+}
+.chance-box {
+  background: var(--putz); border: 1px solid rgba(92,143,191,0.15);
+  border-top: 3px solid var(--hellblau2);
+  border-radius: 8px; padding: 26px;
+}
+.risk-box h3   { font-size: 1rem; font-weight: 700; color: #8a3a22; margin-bottom: 16px; }
+.chance-box h3 { font-size: 1rem; font-weight: 700; color: var(--nacht); margin-bottom: 16px; }
+.rc-list { list-style: none; }
+.rc-list li {
+  font-size: 0.88rem; color: var(--textmid); padding: 6px 0 6px 20px;
+  position: relative; line-height: 1.5; border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.rc-list li:last-child { border-bottom: none; }
+.risk-box   .rc-list li::before { content: '↘'; position: absolute; left: 0; color: rgba(184,85,58,0.55); font-size: 0.85rem; }
+.chance-box .rc-list li::before { content: '→'; position: absolute; left: 0; color: var(--blau); font-size: 0.85rem; }
+.nachwuchs-box {
+  margin-top: 24px; background: var(--putz); border-radius: 8px;
+  border-left: 4px solid var(--hellblau2);
+  padding: 20px 24px; display: flex; gap: 16px; align-items: flex-start;
+}
+.nw-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 1px; }
+.nw-text { font-size: 0.9rem; color: var(--text); line-height: 1.65; }
+.nw-text strong { color: var(--nacht); }
+
+/* ── ÜBER RUTH ── */
+#ruth { background: var(--putz); }
+.ruth-grid { display: grid; grid-template-columns: 320px 1fr; gap: 60px; align-items: start; }
+.ruth-left { display: flex; flex-direction: column; }
+.ruth-photo {
+  border-radius: 10px; overflow: hidden; margin-bottom: 18px;
+}
+.ruth-photo img { width: 100%; height: auto; display: block; border-radius: 10px; }
+.ruth-statement {
+  flex: 1;
+  background: var(--nacht); border-radius: 7px;
+  padding: 22px 22px 22px 26px; border-left: 4px solid var(--hellblau2);
+}
+.ruth-statement p { font-size: 0.9rem; color: rgba(248,243,237,0.8); line-height: 1.7; }
+.ruth-statement .attr { margin-top: 12px; color: var(--putz); font-weight: 700; font-size: 0.8rem; }
+.ruth-intro { font-size: 0.95rem; color: var(--textmid); line-height: 1.7; margin-bottom: 12px; }
+.diff-box {
+  background: white; border-radius: 7px; padding: 18px 22px;
+  margin: 20px 0 22px; border-left: 4px solid var(--blau);
+}
+.diff-box p { font-size: 0.9rem; color: #3a6b52; line-height: 1.65; }
+.quals-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.qual-item {
+  display: flex; gap: 9px; align-items: flex-start;
+  background: var(--lehm); border-radius: 5px; padding: 10px 12px;
+}
+.qual-check { color: var(--blau); font-weight: 700; font-size: 0.9rem; flex-shrink: 0; margin-top: 1px; }
+.qual-text  { font-size: 0.82rem; color: var(--text); line-height: 1.4; }
+
+/* ── LEISTUNGEN – hellblau heller und freundlicher ── */
+#leistungen { background: var(--lehm2); }
+.elevator {
+  background: var(--nacht); border-radius: 8px;
+  padding: 24px 30px; margin-bottom: 32px;
+  border-left: 4px solid var(--hellblau2);
+}
+.elevator p { font-size: 1.05rem; font-style: italic; color: rgba(248,243,237,0.82); line-height: 1.65; }
+.leist-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 28px; }
+.leist-card {
+  background: var(--putz); border-radius: 8px; padding: 20px;
+  border-top: 3px solid #3a6b52;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.leist-card:hover { border-top-color: #2d5441; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.07); }
+.leist-letter {
+  display: inline-block;
+  background: rgba(58,107,82,0.13);
+  color: #3a6b52;
+  font-weight: 700; font-size: 0.78rem; width: 24px; height: 24px;
+  border-radius: 3px; text-align: center; line-height: 24px; margin-bottom: 10px;
+}
+.leist-card h4 { font-size: 0.92rem; font-weight: 700; color: var(--nacht); margin-bottom: 6px; }
+.leist-card p  { font-size: 0.82rem; color: var(--textmid); line-height: 1.55; }
+.ansatz-row {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  background: var(--nacht); border-radius: 8px; overflow: hidden;
+}
+.ansatz-step { padding: 20px 12px; text-align: center; border-right: 1px solid rgba(255,255,255,0.07); }
+.ansatz-step:last-child { border-right: none; }
+.ansatz-num { font-size: 1.5rem; font-weight: 800; color: #3a6b52; display: block; margin-bottom: 6px; }
+.ansatz-step p { font-size: 0.77rem; color: rgba(248,243,237,0.6); line-height: 1.4; }
+
+/* ── PRAXISPARTNER ── */
+#programm { background: var(--nacht); }
+.prog-grid { display: grid; grid-template-columns: 1fr 370px; gap: 52px; align-items: center; }
+#programm .section-label { color: var(--hellblau2); }
+#programm .section-h2    { color: var(--putz); }
+#programm .sep           { background: rgba(158,205,232,0.3); }
+.prog-intro { font-size: 0.95rem; color: rgba(248,243,237,0.62); line-height: 1.7; margin-bottom: 22px; }
+.prog-list { list-style: none; margin-bottom: 22px; }
+.prog-list li {
+  padding: 9px 0 9px 22px; position: relative;
+  color: rgba(248,243,237,0.75); font-size: 0.9rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07); line-height: 1.5;
+}
+.prog-list li::before { content: '\2192'; position: absolute; left: 0; color: var(--hellblau2); }
+.prog-note { font-size: 0.83rem; color: rgba(248,243,237,0.42); font-style: italic; line-height: 1.6; }
+.preis-card {
+  background: var(--putz); border-radius: 10px; padding: 34px 28px;
+  text-align: center; border: 2px solid rgba(184,85,58,0.3); position: relative;
+}
+.preis-badge {
+  position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+  background: var(--kupfer); color: var(--putz);
+  font-size: 0.68rem; font-weight: 700; padding: 4px 16px;
+  border-radius: 20px; letter-spacing: 1px; text-transform: uppercase; white-space: nowrap;
+}
+.preis-big  { font-size: 2.8rem; font-weight: 800; color: var(--nacht); display: block; margin: 16px 0 4px; letter-spacing: -1px; }
+.preis-sub  { font-size: 0.8rem; color: var(--textmid); margin-bottom: 20px; }
+.preis-includes {
+  list-style: none; font-size: 0.84rem; color: var(--textmid);
+  text-align: left; border-top: 1px solid var(--lehm); padding-top: 14px; margin-bottom: 18px; line-height: 1.6;
+}
+.preis-includes li { padding: 4px 0 4px 16px; position: relative; }
+.preis-includes li::before { content: '\2713'; position: absolute; left: 0; color: var(--blau); font-weight: 700; }
+.slots-note { background: rgba(15,39,68,0.07); border-radius: 5px; padding: 9px 12px; font-size: 0.78rem; color: var(--nacht); font-weight: 600; margin-bottom: 16px; }
+
+/* ── KONTAKT ── */
+#kontakt { background: var(--putz); }
+.kontakt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+.kontakt-item { display: flex; align-items: center; gap: 14px; padding: 11px 0; border-bottom: 1px solid rgba(0,0,0,0.07); }
+.k-icon { color: var(--blau); font-size: 1rem; width: 20px; text-align: center; flex-shrink: 0; }
+.k-item-text { font-size: 0.92rem; color: var(--text); }
+.k-item-text a { color: var(--text); text-decoration: none; }
+.k-item-text a:hover { color: var(--kupfer); }
+.kontakt-note {
+  margin-top: 22px; background: var(--lehm); border-radius: 7px;
+  border-left: 4px solid var(--hellblau2);
+  padding: 15px 18px; font-size: 0.85rem; color: var(--textmid); line-height: 1.65;
+}
+.form-box { background: var(--nacht); border-radius: 10px; padding: 32px; }
+.form-box h3 { font-size: 1.25rem; font-weight: 700; color: var(--putz); margin-bottom: 22px; }
+.form-group { margin-bottom: 14px; }
+.form-group label { display: block; font-size: 0.75rem; font-weight: 700; color: rgba(248,243,237,0.5); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 5px; }
+.form-group input, .form-group textarea, .form-group select {
+  width: 100%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 4px; padding: 10px 12px; color: var(--putz); font-family: var(--sans);
+  font-size: 0.88rem; outline: none; transition: border-color 0.2s;
+}
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--hellblau2); }
+.form-group textarea { height: 90px; resize: vertical; }
+.form-group select option { background: #0F2744; }
+.form-submit { width: 100%; background: var(--kupfer); color: var(--putz); border: none; padding: 12px; border-radius: 4px; font-size: 0.9rem; font-weight: 700; font-family: var(--sans); cursor: pointer; transition: background 0.2s; }
+.form-submit:hover { background: #9e4430; }
+.form-hint { font-size: 0.73rem; color: rgba(248,243,237,0.32); margin-top: 9px; text-align: center; }
+
+/* ── FOOTER ── */
+footer {
+  background: #081828; padding: 18px 52px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+footer p { font-size: 0.76rem; color: rgba(248,243,237,0.28); }
+footer a { color: rgba(248,243,237,0.28); text-decoration: none; }
+footer a:hover { color: var(--hellblau2); }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ NAVIGATION ══════════════ -->
+<nav>
+  <div class="nav-brand">prozess<span>konkret</span></div>
+  <ul class="nav-links">
+    <li><a href="#probleme">Schmerzpunkte</a></li>
+    <li><a href="#lage">Marktlage</a></li>
+    <li><a href="#ruth">Über mich</a></li>
+    <li><a href="#leistungen">Leistungen</a></li>
+    <li><a href="#kontakt" class="nav-cta">Erstgespräch</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section id="start">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-kicker">Digitalisierung &amp; KI-Begleitung · Handwerksbetriebe</div>
+        <h1 class="hero-h1">
+          <!-- <span class="h1-line1">Damit</span><br> -->
+          <span class="h1-line1">Mehr Überblick im Betrieb.</span><br>
+          <span class="accent">Mehr Zeit fürs Kerngeschäft.</span>
+        </h1>
+        <p class="hero-sub">
+          Viele Betriebe laufen nicht so, wie sich der Chef das vorstellt –
+          weil Abläufe nicht protokolliert sind, der Überblick fehlt und die Zeit
+          für Veränderung nie da ist. <br>
+          Ich helfe, Prozesse zu ordnen - Schritt für Schritt.
+        </p>
+        <div class="hero-buttons">
+          <!-- Putzweiß Hintergrund, Nachtblau Schrift – freundliche Einladung -->
+          <a href="#kontakt" class="btn btn-hero-cta">Kostenloses Erstgespräch &rarr;</a>
+          <!-- Nachtblau Hintergrund, Putzweiß Schrift, Lehm-Rahmen -->
+          <a href="#leistungen" class="btn btn-hero-info">Mein Angebot</a>
+        </div>
+      </div>
+
+      <div class="hero-img-wrap">
+        <img src="Werkstatt3.jpg" alt="Handwerksbetrieb – Werkstatt">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Trennband mit Credentials – zentriert -->
+<div class="hero-bar">
+  <div class="hero-bar-item"><div class="hb-dot"></div><span class="hb-text">13 Jahre Agiler Coach &amp; Prozess-Optimierung</span></div>
+  <div class="hero-bar-item"><div class="hb-dot"></div><span class="hb-text">Zertifiziert im KI-Agentenbau (n8n)</span></div>
+  <div class="hero-bar-item"><div class="hb-dot"></div><span class="hb-text">1:1-Begleitung · individuell · persönlich</span></div>
+  <div class="hero-bar-item"><div class="hb-dot"></div><span class="hb-text">Ruth Wächter · prozesskonkret.de</span></div>
+</div>
+
+<!-- ══════════════ SCHMERZPUNKTE – direkt nach Hero, auf Putzweiß ══════════════ -->
+<section id="probleme">
+  <div class="container">
+    <div class="section-label">Kommt Ihnen das bekannt vor?</div>
+    <h2 class="section-h2">Was viele kleine Betriebe täglich erleben</h2>
+    <div class="sep"></div>
+    <p class="section-intro">
+      Das sind keine Einzelfälle. Diese Situationen sind in kleinen Handwerksbetrieben überall
+      alltäglich – belegt durch aktuelle Studien und Gespräche mit Betriebsinhabern.
+    </p>
+
+    <div class="quotes-grid">
+      <div class="quote-card"><p>„Ich weiß, dass wir digitaler werden müssen – aber wann soll ich das noch unterbringen?"</p></div>
+      <div class="quote-card"><p>„Wir können mit den Preisen der Konkurrenz nicht mithalten."</p></div>
+      <div class="quote-card"><p>„Ständig will irgendwer was von mir! Ich komme nie zu dem, was ich vorhatte?"</p></div>
+      <div class="quote-card"><p>„Die jungen Leute schauen sich unsere Zettelwirtschaft an und sagen: So will ich nicht arbeiten."</p></div>
+    </div>
+
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-head">&#8987; Zeit &amp; Ressourcen</div>
+        <div class="pain-body">Zu viele Aufgaben, zu wenig Zeit. Der Chef wird durch Kundenanfragen gebunden und kommt nicht zum Kerngeschäft.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-head">&#128196; Papierkram &amp; Datenchaos</div>
+        <div class="pain-body">Rapporte verschwinden, Stundenzettel landen im falschen Ordner. Wissen geht verloren wenn ein Mitarbeiter ausfällt.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-head">&#128187; Software passt nicht</div>
+        <div class="pain-body">Insellösungen überall: hier eine Excel-Liste, dort ein Aktenordner. Standard-Software passt nicht zum eigenen Betrieb.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-head">&#128202; Keine belastbaren Zahlen</div>
+        <div class="pain-body">Kalkulation und Planung laufen auf Bauchgefühl. Fehler und Nacharbeit kosten Geld, das man nicht sehen kann.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-head">&#10067; Angst vor Fehlentscheidungen</div>
+        <div class="pain-body">Welches Tool ist das Richtige? Niemand begleitet praxisnah beim Einstieg – die Zeit für Recherche fehlt sowieso.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-head">&#9888; Rechtliche Risiken</div>
+        <div class="pain-body">E-Rechnung, Arbeitszeiterfassung, GoBD-konforme Dokumentation – wer nicht nachrüstet, riskiert teure Nachforderungen.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ MARKTLAGE – nach Schmerzpunkte, auf Lehm ══════════════ -->
+<section id="lage">
+  <div class="container">
+    <div class="section-label">Marktlage Handwerk 2026</div>
+    <h2 class="section-h2">Zwischen Tradition und Transformation</h2>
+    <div class="sep-kupfer"></div>
+    <p class="section-intro">
+      Die wirtschaftliche Lage im Handwerk ist angespannt. Der Zentralverband des Deutschen Handwerks
+      erwartet für 2026 lediglich 1&nbsp;% Umsatzwachstum – bei gleichzeitig sinkender Beschäftigung
+      und steigenden Kosten. Digitalisierung ist längst keine Kür mehr. Sie ist Überlebensfrage.
+    </p>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-num">42&nbsp;%</span>
+        <span class="stat-label">der Betriebe dokumentieren Baustellen noch mit Stift und Papier</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">16&nbsp;%</span>
+        <span class="stat-label">der Kleinstbetriebe (2–5 MA) investieren überhaupt in Digitalisierung</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">25.000&nbsp;€</span>
+        <span class="stat-label">gehen im Schnitt pro Jahr durch ineffiziente Prozesse verloren (KfW)</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">54&nbsp;%</span>
+        <span class="stat-label">fürchten, ohne Digitalisierung im Wettbewerb um Fachkräfte zu verlieren</span>
+      </div>
+    </div>
+
+    <div class="rc-grid">
+      <div class="risk-box">
+        <h3>Was passiert, wenn Sie nicht handeln</h3>
+        <ul class="rc-list">
+          <li>Sinkende Produktivität bei steigenden Kosten</li>
+          <li>Verlust von Kunden an digital besser aufgestellte Mitbewerber</li>
+          <li>Rechtliche Risiken: E-Rechnung (Pflicht seit 2025), Arbeitszeiterfassung, GoBD – Bußgelder bis 30.000 €</li>
+          <li>Der Chef sitzt abends noch Stunden am Schreibtisch</li>
+          <li>Gute Mitarbeitende sind schwerer zu finden und zu halten</li>
+        </ul>
+      </div>
+      <div class="chance-box">
+        <h3>Was Digitalisierung und KI möglich machen</h3>
+        <ul class="rc-list">
+          <li>Automatisierte Abläufe – weniger Zettelwirtschaft, mehr Klarheit</li>
+          <li>Schnellere Angebote, bessere Reaktionszeiten auf Kundenanfragen</li>
+          <li>Transparente Zahlen als Basis für kluge Entscheidungen</li>
+          <li>Attraktiver Arbeitgeber: Digitale Betriebe gewinnen leichter Fachkräfte</li>
+          <li>Sogar ganz neue Geschäftsmodelle werden möglich – KI eröffnet Wege, die es früher nicht gab</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="nachwuchs-box">
+      <div class="nw-icon">&#128104;&#8205;&#128295;</div>
+      <div class="nw-text">
+        <strong>Die nächste Generation wächst digital auf.</strong> Junge Fachkräfte setzen digitale
+        Werkzeuge und KI heute schlicht voraus. Betriebe, die mit Zettelwirtschaft arbeiten, verlieren
+        nicht nur Kunden – sie verlieren auch die Mitarbeitenden, die sie morgen dringend brauchen.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ ÜBER RUTH ══════════════ -->
+<section id="ruth">
+  <div class="container">
+    <div class="ruth-grid">
+      <div class="ruth-left">
+        <div class="ruth-photo">
+          <img src="_RUW0799_A2_qqk.jpg" alt="Ruth Wächter – prozesskonkret">
+        </div>
+        <div class="ruth-statement">
+          <p>
+            Ich habe über ein Jahrzehnt Teams und Führungskräfte durch Veränderungsprozesse begleitet –
+            mit digitalen Werkzeugen, agilen Methoden und dem klaren Blick für das, was wirklich
+            funktioniert. Heute bringe ich dieses Wissen in kleine Handwerksbetriebe: dort, wo im Alltag
+            oft keine Zeit bleibt, aber der Bedarf am größten ist. Mir geht es nicht um Technik um der
+            Technik willen – sondern darum, dass Ihr Betrieb so läuft, wie Sie ihn sich vorstellen.
+          </p>
+          <div class="attr">— Ruth Wächter · prozesskonkret.de</div>
+        </div>
+      </div><!-- /ruth-left -->
+
+      <div>
+        <div class="section-label">Über mich</div>
+        <h2 class="section-h2">Warum ich das mache –<br>und was mich unterscheidet</h2>
+        <div class="sep-kupfer"></div>
+        <p class="ruth-intro">
+          Ich bin keine IT-Beraterin, die Standardsoftware verkauft. Ich bin Prozessbegleiterin –
+          jemand, der zuhört, analysiert und dann gemeinsam mit Ihnen umsetzt.
+        </p>
+        <p class="ruth-intro">
+          Durch Familienmitglieder im Handwerksberuf kenne ich die Realität kleiner Betriebe aus
+          nächster Nähe: den langen Tag auf der Baustelle, die Stunden am Schreibtisch danach,
+          das Gefühl, nie richtig fertig zu werden. Diese Betriebe fallen durch das Raster der großen
+          Digitalisierungsinitiativen – genau dort setze ich an.
+        </p>
+        <div class="diff-box">
+          <p>
+            <strong>Was mich unterscheidet:</strong> Ich kombiniere 13 Jahre Erfahrung in Prozessgestaltung
+            und Veränderungsbegleitung mit technischem Know-how für maßgeschneiderte Automatisierung.
+            Ich verstehe nicht nur die Technik, sondern auch, wie man Menschen durch Veränderungen
+            führt – ohne Überforderung.
+          </p>
+        </div>
+        <div class="quals-grid">
+          <div class="qual-item"><div class="qual-check">&#10003;</div><div class="qual-text">13 Jahre Agiler Coach &amp; Scrum Master in Softwareunternehmen</div></div>
+          <div class="qual-item"><div class="qual-check">&#10003;</div><div class="qual-text">Zertifiziert im KI-Agentenbau mit n8n</div></div>
+          <div class="qual-item"><div class="qual-check">&#10003;</div><div class="qual-text">Erfahrung mit Telegram-Bots, Google Sheets, Azure OpenAI, Whisper</div></div>
+          <div class="qual-item"><div class="qual-check">&#10003;</div><div class="qual-text">Expertise in Prozess-Optimierung &amp; Organisationsentwicklung</div></div>
+          <div class="qual-item"><div class="qual-check">&#10003;</div><div class="qual-text">Persönlicher Bezug zum Handwerk aus der Familie</div></div>
+          <div class="qual-item"><div class="qual-check">&#10003;</div><div class="qual-text">Toolunabhängig – ich empfehle, was für Ihren Betrieb passt</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ LEISTUNGEN ══════════════ -->
+<section id="leistungen">
+  <div class="container">
+    <div class="section-label">Leistungsangebot</div>
+    <h2 class="section-h2">Was ich für Ihren Betrieb tue</h2>
+    <div class="sep"></div>
+    <p class="section-intro">
+      Von der ersten Klärung bis zur stabil laufenden Lösung. Kein Einmalprojekt –
+      nachhaltige Begleitung, bis die neuen Prozesse im Alltag wirklich funktionieren.
+    </p>
+
+    <div class="elevator">
+      <p>„Ich verbinde gewachsene Abläufe mit digitalen Möglichkeiten und klug eingesetzter KI.
+      So entsteht ein Betrieb, der effizienter arbeitet – ohne sich neu erfinden zu müssen."</p>
+    </div>
+
+    <div class="leist-grid">
+      <div class="leist-card">
+        <div class="leist-letter">A</div>
+        <h4>Kostenloses Erstgespräch</h4>
+        <p>Ca. 15 Minuten, unverbindlich. Sie erzählen, wo der Schuh drückt – ich höre zu und gebe eine erste Einschätzung. Kein Verkaufsgespräch. Kein Druck.</p>
+      </div>
+      <div class="leist-card">
+        <div class="leist-letter">B</div>
+        <h4>Strukturierte Prozessanalyse</h4>
+        <p>Aufnahme des Status quo: Welche Abläufe laufen analog? Wo sind die größten Reibungsverluste? Wo liegen die Hebel für schnelle Verbesserung?</p>
+      </div>
+      <div class="leist-card">
+        <div class="leist-letter">C</div>
+        <h4>Digitale Abläufe modellieren</h4>
+        <p>Bestehende Abläufe werden Schritt für Schritt in digitale Prozesse übersetzt – praxistauglich, ohne Überforderung, Fokus auf dem größten Schmerzpunkt.</p>
+      </div>
+      <div class="leist-card">
+        <div class="leist-letter">D</div>
+        <h4>Technologie einführen</h4>
+        <p>Auswahl und Einführung passender Werkzeuge – individuell auf Ihren Betrieb zugeschnitten. Standardlösung oder maßgeschneiderte Automatisierung.</p>
+      </div>
+      <div class="leist-card">
+        <div class="leist-letter">E</div>
+        <h4>KI sinnvoll nutzen</h4>
+        <p>KI-Automatisierung dort wo sie echten Nutzen bringt: KI-Telefonassistenz, Angebotserstellung per Spracheingabe, intelligente Kundenkommunikation.</p>
+      </div>
+      <div class="leist-card">
+        <div class="leist-letter">F</div>
+        <h4>Das Team mitnehmen</h4>
+        <p>Digitalisierung gelingt nur wenn das Team mitzieht. Kurze Schulungen, Buddy-Systeme, Digital-Paten – aus 13 Jahren Erfahrung als Agiler Coach.</p>
+      </div>
+    </div>
+
+    <div class="ansatz-row">
+      <div class="ansatz-step"><span class="ansatz-num">1</span><p>Zuhören &amp; Kennenlernen</p></div>
+      <div class="ansatz-step"><span class="ansatz-num">2</span><p>Analyse &amp; Schmerzpunkte</p></div>
+      <div class="ansatz-step"><span class="ansatz-num">3</span><p>Lösung entwickeln</p></div>
+      <div class="ansatz-step"><span class="ansatz-num">4</span><p>Umsetzen &amp; begleiten</p></div>
+      <div class="ansatz-step"><span class="ansatz-num">5</span><p>Stabilisieren &amp; erweitern</p></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════ KONTAKT ══════════════ -->
+<section id="kontakt">
+  <div class="container">
+    <div class="kontakt-grid">
+      <div>
+        <div class="section-label">Kostenloses Erstgespräch</div>
+        <h2 class="section-h2">Lassen Sie uns sprechen.</h2>
+        <div class="sep-kupfer"></div>
+        <p class="section-intro" style="margin-bottom:28px;">
+          15 Minuten, völlig unverbindlich. Sie erzählen von Ihrem Betrieb –
+          ich höre zu und gebe Ihnen eine erste Einschätzung.
+          Kein Verkaufsgespräch. Einfach ein offenes Gespräch unter Praktikern.
+        </p>
+        <div class="kontakt-details">
+          <div class="kontakt-item">
+            <div class="k-icon">&#9742;</div>
+            <div class="k-item-text"><a href="tel:+4915229487985">0152 – 29 48 79 85</a></div>
+          </div>
+          <div class="kontakt-item">
+            <div class="k-icon">&#9993;</div>
+            <div class="k-item-text"><a href="mailto:ruth_waechter@t-online.de">ruth_waechter@t-online.de</a></div>
+          </div>
+          <div class="kontakt-item">
+            <div class="k-icon">&#127760;</div>
+            <div class="k-item-text"><a href="https://www.prozesskonkret.de" target="_blank">www.prozesskonkret.de</a></div>
+          </div>
+          <div class="kontakt-item">
+            <div class="k-icon">&#128205;</div>
+            <div class="k-item-text">Ruth Wächter · Prozessbegleitung und Digitalisierung</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-box">
+        <h3>Nachricht senden</h3>
+        <iframe data-tally-src="https://tally.so/embed/WOp1oL?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+          loading="lazy" width="100%" height="420" frameborder="0"
+          marginheight="0" marginwidth="0" title="Kontaktformular prozesskonkret"></iframe>
+        <script>
+          var d=document,w="https://tally.so/widgets/embed.js",
+          v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function(e){e.src=e.dataset.tallySrc})};
+          if("undefined"!=typeof Tally)v();
+          else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}
+        </script>
+        <div class="form-hint">Ihre Daten werden vertraulich behandelt und nicht weitergegeben.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <p>© 2026 Ruth Wächter · prozesskonkret.de &nbsp;|&nbsp; Digitalisierung &amp; KI-Begleitung für Handwerksbetriebe</p>
+  <p><a href="#">Impressum</a> &nbsp;|&nbsp; <a href="#">Datenschutz</a></p>
+</footer>
+
+</body>
+</html>
