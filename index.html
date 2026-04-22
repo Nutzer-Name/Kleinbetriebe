@@ -12,12 +12,12 @@
 :root {
   --nacht:     #0F2744;
   --kupfer:    #B8553A;
-  --lehm:      #C9A581;
-  --lehm2:     #DEBA91;
+  --lehm:      #E2BE98;
+  --lehm2:     #E2BE98;
   --putz:      #F8F3ED;
-  --blau:      #3a6b52;    /* Dunkelgrün, ersetzt Akzent-Blau */
-  --hellblau:  #edf5f0;    /* sehr helles Grün, ersetzt hellblau bg */
-  --hellblau2: #5a9e7a;    /* kräftiges Grün für Ränder */
+  --blau:      #4a7d62;    /* einheitliches Dunkelgrün für alle Akzente */
+  --hellblau:  #edf5f0;
+  --hellblau2: #4a7d62;    /* einheitliches Dunkelgrün für alle Ränder */
   --text:      #1E2A38;
   --textmid:   #4A5568;
   --sans:      'Open Sans', Arial, sans-serif;
@@ -232,7 +232,7 @@ section { padding: 72px 0; }
   background: white; border-radius: 7px; padding: 18px 22px;
   margin: 20px 0 22px; border-left: 4px solid var(--blau);
 }
-.diff-box p { font-size: 0.9rem; color: #3a6b52; line-height: 1.65; }
+.diff-box p { font-size: 0.9rem; color: #4a7d62; line-height: 1.65; }
 .quals-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
 .qual-item {
   display: flex; gap: 9px; align-items: flex-start;
@@ -252,14 +252,14 @@ section { padding: 72px 0; }
 .leist-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 28px; }
 .leist-card {
   background: var(--putz); border-radius: 8px; padding: 20px;
-  border-top: 3px solid #3a6b52;
+  border-top: 3px solid #4a7d62;
   transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 .leist-card:hover { border-top-color: #2d5441; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.07); }
 .leist-letter {
   display: inline-block;
-  background: rgba(58,107,82,0.13);
-  color: #3a6b52;
+  background: rgba(74,125,98,0.13);
+  color: #4a7d62;
   font-weight: 700; font-size: 0.78rem; width: 24px; height: 24px;
   border-radius: 3px; text-align: center; line-height: 24px; margin-bottom: 10px;
 }
