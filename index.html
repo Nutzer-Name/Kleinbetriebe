@@ -329,6 +329,61 @@ footer {
 footer p { font-size: 0.76rem; color: rgba(248,243,237,0.28); }
 footer a { color: rgba(248,243,237,0.28); text-decoration: none; }
 footer a:hover { color: var(--hellblau2); }
+
+/* ══════════════ RESPONSIVE ══════════════ */
+@media (max-width: 900px) {
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .leist-grid  { grid-template-columns: 1fr 1fr; }
+  .ansatz-row  { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 768px) {
+  /* NAV */
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+
+  /* LAYOUT */
+  .container { padding: 0 20px; }
+  section    { padding: 48px 0; }
+
+  /* HERO */
+  .hero-inner { grid-template-columns: 1fr; gap: 28px; }
+  .hero-img-wrap { min-height: 220px; max-height: 260px; }
+  .hero-h1 { font-size: 1.7rem; }
+  .hero-sub { font-size: 0.92rem; }
+  .hero-buttons { flex-direction: column; }
+  .hero-buttons .btn { text-align: center; }
+
+  /* TRENNBAND */
+  .hero-bar { flex-direction: column; gap: 10px; align-items: flex-start; padding: 16px 20px; }
+
+  /* SECTION HEADINGS */
+  .section-h2 { font-size: 1.5rem; }
+
+  /* SCHMERZPUNKTE */
+  .quotes-grid { grid-template-columns: 1fr; }
+  .pain-grid   { grid-template-columns: 1fr; }
+
+  /* MARKTLAGE */
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .rc-grid    { grid-template-columns: 1fr; }
+  .nachwuchs-box { flex-direction: column; gap: 8px; }
+
+  /* ÜBER RUTH */
+  .ruth-grid { grid-template-columns: 1fr; gap: 32px; }
+  .quals-grid { grid-template-columns: 1fr; }
+
+  /* LEISTUNGEN */
+  .leist-grid { grid-template-columns: 1fr; }
+  .ansatz-row { grid-template-columns: 1fr 1fr; }
+  .ansatz-step:nth-child(5) { grid-column: span 2; }
+
+  /* KONTAKT */
+  .kontakt-grid { grid-template-columns: 1fr; gap: 32px; }
+
+  /* FOOTER */
+  footer { flex-direction: column; gap: 8px; text-align: center; padding: 16px 20px; }
+}
 </style>
 </head>
 <body>
